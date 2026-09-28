@@ -24,9 +24,16 @@ this project.</p>
 </ul>
 <h2 id="requirements" class="tsd-anchor-link">Requirements<a href="#requirements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
-<li>Node 24 or newer. This is what the tests run against. Older and newer
-versions may work, but are not tested.</li>
-<li>Trino 0.16x or newer.</li>
+<li>Node 24 or newer. This is what the tests run against, and what the <code>engines</code>
+field in <code>package.json</code> declares. The build and lint checks also run against
+Node 26, which becomes the active long term support release on 2026-10-28.
+Older versions may still work, but are not tested, and package managers that
+enforce <code>engines</code> refuse to install on them.</li>
+<li>Trino. The tests run against the latest public release, and against Trino
+440 as an older reference point. Releases in between and since are very
+likely to work, because the client speaks the <a href="https://trino.io/docs/current/develop/client-protocol.html">Trino client REST
+API</a>, which
+changes rarely.</li>
 </ul>
 <h2 id="install" class="tsd-anchor-link">Install<a href="#install" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p><code>npm install @trinodb/trino-js-client</code> or <code>yarn add @trinodb/trino-js-client</code></p>
@@ -55,6 +62,36 @@ receiving new releases.</p>
 <h2 id="examples" class="tsd-anchor-link">Examples<a href="#examples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>More usage examples can be found in the
 <a href="https://github.com/trinodb/trino-js-client/blob/main/tests/it/client.spec.ts">integration tests</a>.</p>
+<h2 id="projects-using-this-client" class="tsd-anchor-link">Projects using this client<a href="#projects-using-this-client" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>The following projects use this client to talk to Trino. They are a good place
+to see it applied to a real workload, beyond the examples in this repository,
+so each entry links to the code that calls the client.</p>
+<ul>
+<li><a href="https://lightdash.com">Lightdash</a> — business intelligence and analytics,
+using the client as its Trino warehouse connector.
+<a href="https://github.com/lightdash/lightdash/blob/main/packages/warehouses/src/warehouseClients/TrinoWarehouseClient.ts"><code>TrinoWarehouseClient.ts</code></a></li>
+<li><a href="https://www.malloydata.dev">Malloy</a> — an open source language for describing
+data relationships and transformations, in its Trino dialect connector.
+<a href="https://github.com/malloydata/malloy/tree/main/packages/malloy-db-trino"><code>packages/malloy-db-trino</code></a></li>
+<li><a href="https://www.beekeeperstudio.io">Beekeeper Studio</a> — a cross-platform SQL
+client and database manager.
+<a href="https://github.com/beekeeper-studio/beekeeper-studio/blob/master/apps/studio/src-commercial/backend/lib/db/clients/trino.ts"><code>trino.ts</code></a></li>
+<li><a href="https://dbcode.io">DBCode</a> — a database editor for Visual Studio Code,
+Cursor, and Windsurf. The extension source is not published, so only the
+manifest is public.
+<a href="https://github.com/dbcodeio/public"><code>dbcodeio/public</code></a></li>
+<li><a href="https://dbeagle.fyi">DBeagle</a> — a Visual Studio Code extension for SQL
+exploration.
+<a href="https://github.com/prasaddpathak/dbeagle/tree/master/src/drivers/trino"><code>src/drivers/trino</code></a></li>
+<li><a href="https://github.com/kuzho/sqlnotebook-pro">SQL Notebook Pro</a> — a Visual
+Studio Code extension for SQL notebooks.
+<a href="https://github.com/kuzho/sqlnotebook-pro/blob/main/src/driver.ts"><code>src/driver.ts</code></a></li>
+<li><a href="https://github.com/Dmsrdnv/n8n-nodes-trino">n8n-nodes-trino</a> — a community
+node that queries Trino from an n8n workflow.
+<a href="https://github.com/Dmsrdnv/n8n-nodes-trino/tree/master/nodes/Trino"><code>nodes/Trino</code></a></li>
+</ul>
+<p>Using the client in your own project? Open a pull request and add it to the
+list.</p>
 <h2 id="build" class="tsd-anchor-link">Build<a href="#build" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>Use the following commands to build the project locally with your modifications,
 and in preparation to contribute a pull request.</p>
@@ -133,6 +170,14 @@ Ran all test suites matching /tests\/it/i.
 and contact us on Slack and GitHub.</p>
 <p>Copyright
 <a href="https://github.com/trinodb/trino-js-client/graphs/contributors">Trino JS Client contributors</a> 2022-present</p>
+<h2 id="versioning" class="tsd-anchor-link">Versioning<a href="#versioning" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>From 1.0.0 onward every release increments the major version. Version 1.0.0 is
+followed by 2.0.0, then 3.0.0, with no compatibility implied between them. The
+scheme mirrors the way Trino itself numbers releases, and it sets the
+expectation that each version is its own upgrade. Read the release notes rather
+than the version number to find out what changed.</p>
+<p>Releases before 1.0.0 used ordinary semantic versioning, and versions up to and
+including 0.2.9 were published under the unscoped name <code>trino-client</code>.</p>
 <h2 id="releasing" class="tsd-anchor-link">Releasing<a href="#releasing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>Releases are fully automated with GitHub Actions. A release needs nothing
 beyond a merged pull request that updates the version.</p>
@@ -140,8 +185,9 @@ beyond a merged pull request that updates the version.</p>
 <li>Update the <code>version</code> field in <code>package.json</code> to the version you are about to
 release. Nothing else needs to change, since the lockfile records the
 workspace as <code>0.0.0-use.local</code> rather than the released version.</li>
-<li>Commit the change on a branch, with <code>Release trino-js-client &lt;version&gt;</code> as
-the commit message, and open a pull request.</li>
+<li>Commit the change on a branch, using
+<code>Release @trinodb/trino-js-client &lt;version&gt;</code> as the commit message, and open
+a pull request.</li>
 <li>Merge the pull request once it is approved and the checks pass.</li>
 </ol>
 <p>Merging runs the <code>release</code> workflow, which compares the version in
@@ -194,9 +240,11 @@ supported continuous integration environment.</p>
 <li><a href="#iterate-through-the-query-results"><span>Iterate through the query results</span></a></li>
 <li><a href="#alternative-map-and-aggregate-the-data"><span>Alternative: map and aggregate the data</span></a></li></ul></li>
 <li><a href="#examples"><span>Examples</span></a></li>
+<li><a href="#projects-using-this-client"><span>Projects using this client</span></a></li>
 <li><a href="#build"><span>Build</span></a></li>
 <li><a href="#integration-test"><span>Integration test</span></a></li>
 <li><a href="#contributing"><span>Contributing</span></a></li>
+<li><a href="#versioning"><span>Versioning</span></a></li>
 <li><a href="#releasing"><span>Releasing</span></a></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html">@trinodb/trino-js-client</a>
